@@ -1,0 +1,6 @@
+# Archivos de configuración privados
+database.php
+
+# Archivos temporales
+*.log
+.DS_Store
