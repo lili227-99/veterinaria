@@ -1,0 +1,516 @@
+
+/* =========================================
+   MÓDULO DE TURNOS VETERINARIOS
+   Archivo: assets/css/turnos.css
+========================================= */
+
+.turnos-contenedor {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0;
+    color: #243247;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.turnos-contenedor *,
+.modal-turno * {
+    box-sizing: border-box;
+}
+
+/* ENCABEZADO */
+
+.turnos-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+}
+
+.turnos-encabezado h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #203047;
+}
+
+.turnos-encabezado p,
+.turnos-panel-encabezado p,
+.modal-turno-encabezado p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* BOTÓN NUEVO TURNO */
+
+.btn-nuevo-turno {
+    border: none;
+    border-radius: 9px;
+    padding: 12px 19px;
+    background: #4299e6;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-nuevo-turno:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+}
+
+.btn-secundario {
+    border: 1px solid #d8e0e8;
+    border-radius: 8px;
+    padding: 11px 17px;
+    background: #ffffff;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secundario:hover {
+    background: #f4f7fa;
+}
+
+/* MENSAJES */
+
+.mensaje-turnos {
+    display: none;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.mensaje-turnos:not(:empty) {
+    display: block;
+}
+
+.mensaje-turnos.exito {
+    background: #e8f7ee;
+    color: #17683a;
+    border: 1px solid #b9e6c9;
+}
+
+.mensaje-turnos.error {
+    background: #fff0f0;
+    color: #a32626;
+    border: 1px solid #f0c2c2;
+}
+
+/* PANEL PRINCIPAL */
+
+.turnos-panel {
+    background: #ffffff;
+    border: 1px solid #e4eaf0;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgba(31, 45, 61, 0.04);
+}
+
+.turnos-panel-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.turnos-panel-encabezado h2 {
+    margin: 0 0 7px;
+    color: #26364a;
+    font-size: 19px;
+}
+
+/* BUSCADOR Y FILTROS */
+
+.turnos-filtros {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.turnos-filtros input,
+.turnos-filtros select {
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #d9e1e9;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 13px;
+    outline: none;
+}
+
+.turnos-filtros input {
+    width: 270px;
+    max-width: 100%;
+}
+
+.turnos-filtros select {
+    min-width: 165px;
+}
+
+.turnos-filtros input:focus,
+.turnos-filtros select:focus {
+    border-color: #4299e6;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+/* TABLA */
+
+.tabla-turnos-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e8edf2;
+    border-radius: 9px;
+}
+
+.tabla-turnos {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    text-align: left;
+    background: #ffffff;
+}
+
+.tabla-turnos thead {
+    background: #f4f7fa;
+}
+
+.tabla-turnos th {
+    padding: 12px 10px;
+    color: #5a6b80;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+    border-bottom: 1px solid #e3eaf1;
+}
+
+.tabla-turnos td {
+    padding: 12px 10px;
+    color: #44546a;
+    font-size: 13px;
+    border-bottom: 1px solid #edf1f5;
+    vertical-align: middle;
+}
+
+.tabla-turnos tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-turnos tbody tr:hover {
+    background: #f8fbfd;
+}
+
+.tabla-turnos td[colspan] {
+    text-align: center;
+    padding: 30px 15px;
+    color: #7a899a;
+}
+
+/* ESTADOS DE LOS TURNOS
+   El JavaScript puede usar estas clases en una etiqueta span. */
+
+.estado-turno {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    color: #8a5b00;
+    background: #fff2cc;
+}
+
+.estado-confirmado {
+    color: #1459a6;
+    background: #e0efff;
+}
+
+.estado-atendido {
+    color: #17683a;
+    background: #dcf5e5;
+}
+
+.estado-cancelado {
+    color: #a32626;
+    background: #ffe5e5;
+}
+
+.estado-ausente {
+    color: #6841a5;
+    background: #eee5ff;
+}
+
+/* BOTONES DE ACCIONES
+   El JavaScript debe aplicar estas clases a sus botones. */
+
+.acciones-turno {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.btn-editar-turno,
+.btn-eliminar-turno {
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-editar-turno {
+    color: #185ca8;
+    background: #e9f2ff;
+    border-color: #d3e5ff;
+}
+
+.btn-editar-turno:hover {
+    background: #d6e7ff;
+}
+
+.btn-eliminar-turno {
+    color: #b42323;
+    background: #fff0f0;
+    border-color: #f5d0d0;
+}
+
+.btn-eliminar-turno:hover {
+    background: #ffdddd;
+}
+
+/* MODAL DEL FORMULARIO */
+
+.modal-turno {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(560px, calc(100% - 32px));
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+    background: #ffffff;
+    color: #243247;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.22);
+}
+
+.modal-turno::backdrop {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.modal-turno[open] {
+    animation: aparecer-modal-turno 0.18s ease-out;
+}
+
+@keyframes aparecer-modal-turno {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-turno-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 23px 25px;
+    border-bottom: 1px solid #e9edf2;
+}
+
+.modal-turno-encabezado h2 {
+    margin: 0 0 7px;
+    color: #203047;
+    font-size: 21px;
+}
+
+.btn-cerrar-modal {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 8px;
+    background: #f0f3f7;
+    color: #536276;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-cerrar-modal:hover {
+    background: #e2e8f0;
+}
+
+/* CAMPOS DEL FORMULARIO */
+
+#formTurno {
+    padding: 24px 25px 25px;
+}
+
+.campo-turno {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 19px;
+}
+
+.campo-turno label {
+    color: #344256;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.campo-turno input,
+.campo-turno select,
+.campo-turno textarea {
+    width: 100%;
+    min-height: 43px;
+    padding: 11px 12px;
+    border: 1px solid #d7e0e8;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #26364a;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo-turno textarea {
+    min-height: 100px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.campo-turno input:focus,
+.campo-turno select:focus,
+.campo-turno textarea:focus {
+    border-color: #4299e6;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+.campo-turno small {
+    color: #7b8998;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.campos-obligatorios {
+    margin: 0 0 18px;
+    color: #7b8998;
+    font-size: 12px;
+}
+
+/* BOTONES DEL FORMULARIO */
+
+.modal-botones-turno {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid #e9edf2;
+}
+
+.btn-nuevo-turno:disabled,
+.btn-editar-turno:disabled,
+.btn-eliminar-turno:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .turnos-contenedor {
+        padding: 16px;
+    }
+
+    .turnos-encabezado {
+        align-items: stretch;
+    }
+
+    .turnos-encabezado h1 {
+        font-size: 24px;
+    }
+
+    .btn-nuevo-turno {
+        width: 100%;
+    }
+
+    .turnos-panel {
+        padding: 15px;
+    }
+
+    .turnos-panel-encabezado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .turnos-filtros {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .turnos-filtros input,
+    .turnos-filtros select {
+        width: 100%;
+    }
+
+    .modal-turno-encabezado {
+        padding: 19px;
+    }
+
+    #formTurno {
+        padding: 19px;
+    }
+}
+
+@media (max-width: 420px) {
+    .turnos-contenedor {
+        padding: 10px;
+    }
+
+    .turnos-panel {
+        padding: 10px;
+    }
+
+    .modal-botones-turno {
+        flex-direction: column-reverse;
+    }
+
+    .modal-botones-turno button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,288 @@
+/* ==============================
+   CLIENTES
+   (los estilos generales, body y sidebar
+   están en estilos.css)
+============================== */
+
+/* ==============================
+   CONTENEDOR DE LA PÁGINA
+============================== */
+
+.contenedor {
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+/* ==============================
+   ENCABEZADO
+============================== */
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.encabezado h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.encabezado p {
+    color: #6b7280;
+}
+
+/* ==============================
+   BOTONES
+   (limitados a la página y al modal para no tocar el sidebar)
+============================== */
+
+.contenedor button,
+dialog button {
+    border: none;
+    border-radius: 7px;
+    padding: 11px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.contenedor button:hover,
+dialog button:hover {
+    opacity: 0.85;
+}
+
+.contenedor button:disabled,
+dialog button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-principal {
+    background: #4299e6;
+    color: white;
+}
+
+.btn-secundario {
+    background: #e9edf1;
+    color: #243447;
+}
+
+.btn-editar {
+    background: #e3efff;
+    color: #185abc;
+    margin-right: 5px;
+}
+
+.btn-eliminar {
+    background: #fde8e8;
+    color: #b42318;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+/* ==============================
+   PANEL Y BÚSQUEDA
+============================== */
+
+.panel {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 12px #0000000a;
+}
+
+.barra-busqueda {
+    width: 100%;
+    max-width: 430px;
+    padding: 12px;
+    border: 1px solid #d5dce3;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.barra-busqueda:focus,
+.campo input:focus {
+    outline: 2px solid #163e83;
+    outline-offset: 1px;
+}
+
+/* ==============================
+   MENSAJES
+============================== */
+
+.mensaje {
+    display: none;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 7px;
+}
+
+.mensaje.ok {
+    display: block;
+    background: #e5f7ed;
+    color: #166534;
+}
+
+.mensaje.error {
+    display: block;
+    background: #fde8e8;
+    color: #b42318;
+}
+
+/* ==============================
+   TABLA DE CLIENTES
+============================== */
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-contenedor table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.tabla-contenedor th,
+.tabla-contenedor td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #edf0f2;
+    text-align: left;
+    font-size: 14px;
+}
+
+.tabla-contenedor th {
+    background: #f8fafb;
+    color: #52606d;
+}
+
+.tabla-contenedor tbody tr:hover {
+    background: #f8fafb;
+}
+
+.sin-resultados {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+}
+
+/* ==============================
+   FORMULARIO MODAL
+============================== */
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(700px, calc(100% - 32px));
+    max-width: 700px;
+    min-height: 340px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+    background: #ffffff;
+    color: #243247;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.22);
+    margin: 0;
+}
+
+dialog::backdrop {
+    background: #00000070;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.btn-cerrar-formulario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-cerrar-formulario:hover {
+    background: #e2e8f0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo.completo {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo input {
+    padding: 11px;
+    border: 1px solid #cbd5df;
+    border-radius: 7px;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+/* ==============================
+   DISEÑO RESPONSIVE
+============================== */
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo.completo {
+        grid-column: auto;
+    }
+
+    .encabezado h1 {
+        font-size: 23px;
+    }
+
+    .panel {
+        padding: 15px;
+    }
+}
