@@ -1,228 +1,106 @@
 # Veterinaria
 
-Sistema de gestión para una veterinaria desarrollado en PHP con una interfaz web simple, rápida y funcional para administrar clientes, mascotas y turnos.
+Sistema web de gestión para una veterinaria. Permite administrar clientes, mascotas y turnos desde una interfaz en español desarrollada en PHP, JavaScript y CSS.
 
-## Descripción
+## Funcionalidades
 
-Esta aplicación está pensada para ser utilizada por una clínica veterinaria o consultorio para llevar el control de:
+- Panel inicial con conteos de clientes, mascotas y turnos.
+- Gestión de clientes y mascotas, incluyendo bajas lógicas.
+- Agenda de turnos con búsqueda, edición, estados y cancelación.
+- Inicio de sesión de administrador con sesión PHP y contraseñas almacenadas como hash.
 
-- clientes
-- mascotas
-- turnos
-- estados de atención
-- resumen del día
+## Tecnologías
 
-El proyecto sigue un enfoque tipo CRUD, con frontend en JavaScript y CSS, y backend en PHP usando PDO para acceder a la base de datos.
-
-## Stack tecnológico
-
-- PHP 8+
-- MySQL / MariaDB
-- JavaScript (vanilla)
+- PHP 8.0 o superior
+- MySQL o MariaDB mediante PDO
+- JavaScript sin framework
 - CSS personalizado
-- PDO para consultas preparadas
 
-## Características principales
-
-- Dashboard inicial con resumen general
-- Gestión de clientes con listado, búsqueda y edición
-- Gestión de mascotas con alta, baja lógica y edición
-- Gestión de turnos con validación por fecha, motivo y estado
-- Filtros de búsqueda por turno, estado o datos relevantes
-- Formularios modal para mejorar la experiencia de uso
-- API REST-like interna dentro de `api/`
-
-## Estructura del proyecto
+## Estructura
 
 ```text
-veterinaria/
-├── api/
-│   ├── clientes/
-│   │   ├── crear.php
-│   │   ├── editar.php
-│   │   ├── eliminar.php
-│   │   └── listar.php
-│   ├── mascotas/
-│   │   ├── crear.php
-│   │   ├── editar.php
-│   │   ├── eliminar.php
-│   │   └── listar.php
-│   └── turnos/
-│       ├── crear.php
-│       ├── editar.php
-│       ├── eliminar.php
-│       └── listar.php
-├── assets/
-│   ├── css/
-│   └── js/
-├── includes/
-│   ├── footer.php
-│   └── header.php
-├── pages/
-│   ├── clientes.php
-│   ├── inicio.php
-│   ├── mascotas.php
-│   └── turnos.php
-├── .gitignore
-├── index.php
-├── database.php
-├── README.md
-└── LICENSE (si aplica)
+api/                   Endpoints JSON para clientes, mascotas y turnos
+assets/css/            Estilos globales y específicos por página
+assets/js/             Interacción frontend y llamadas a la API
+config/auth.example.php Ejemplo de configuración local del acceso
+includes/auth.php      Sesiones, autenticación y utilidades CSRF
+includes/              Layout compartido
+pages/                 Pantallas de inicio, clientes, mascotas y turnos
+index.php              Entrada del sistema (requiere iniciar sesión)
+login.php              Formulario de acceso
+logout.php             Cierre de sesión
 ```
 
-## Requisitos previos
+## Requisitos
 
-Antes de levantar el proyecto, necesitás tener instalado:
+- PHP 8.0 o superior con las extensiones PDO y PDO MySQL habilitadas.
+- MySQL o MariaDB y la base de datos del proyecto ya creada.
+- Apache/XAMPP, WAMP, MAMP o el servidor de desarrollo de PHP.
 
-- PHP 8 o superior
-- MySQL o MariaDB
-- Un servidor local como XAMPP, WAMP, MAMP o PHP embebido
+## Instalación y configuración
 
-## Instalación
+1. Cloná el repositorio y entrá a la carpeta:
 
-1. Cloná el repositorio:
+   ```bash
+   git clone https://github.com/lili227-99/veterinaria.git
+   cd veterinaria
+   ```
 
-```bash
-git clone https://github.com/lili227-99/veterinaria.git
-cd veterinaria
-```
+2. Configurá `database.php` en la raíz con los datos de conexión de tu base existente. Este archivo está excluido de Git para no publicar credenciales.
 
-2. Configurá la conexión a la base de datos.
+3. Creá el archivo privado de acceso a partir del ejemplo:
 
-El proyecto espera un archivo `database.php` en la raíz del proyecto. Si ya lo tenés creado, solo dejalo allí con tus credenciales reales.
+   ```bash
+   cp config/auth.example.php config/auth.php
+   ```
 
-Ejemplo:
+   En Windows, también podés copiar `config/auth.example.php` desde el Explorador de archivos y renombrar la copia como `auth.php`.
+
+4. Generá un hash para tu contraseña (reemplazá el texto de ejemplo por una contraseña propia):
+
+   ```bash
+   php -r "echo password_hash('CAMBIAME_POR_UNA_CLAVE_SEGURA', PASSWORD_DEFAULT), PHP_EOL;"
+   ```
+
+   Copiá el resultado en `config/auth.php`, en `password_hash`, y elegí el nombre de usuario que quieras. No guardes una contraseña en texto plano ni subas `config/auth.php` al repositorio.
+
+5. Iniciá el servidor. Con PHP integrado:
+
+   ```bash
+   php -S localhost:8000
+   ```
+
+   O con XAMPP, iniciá Apache y MySQL y colocá la carpeta en `htdocs`.
+
+6. Abrí `http://localhost:8000/login.php` (o la URL local correspondiente a XAMPP) e ingresá con el usuario y la contraseña que configuraste.
+
+## Uso
+
+- Inicio: `index.php?pages=inicio`
+- Clientes: `index.php?pages=clientes`
+- Mascotas: `index.php?pages=mascotas`
+- Turnos: `index.php?pages=turnos`
+- Para salir, usá el botón **Cerrar sesión** del menú lateral.
+
+Las páginas principales redirigen al login cuando no existe una sesión autenticada. El formulario incluye protección CSRF, la sesión se renueva al iniciar sesión y la cookie se configura como HttpOnly y SameSite=Lax.
+
+## Importante sobre la API
+
+El login protege las pantallas del sistema. Para que las rutas de `api/` también queden cerradas al acceso directo, cada endpoint debe validar la sesión antes de ejecutar su lógica. Al comienzo de cada archivo PHP dentro de `api/clientes/`, `api/mascotas/` y `api/turnos/`, agregá esta línea antes de incluir `database.php`:
 
 ```php
-<?php
-$host = 'localhost';
-$db   = 'veterinaria';
-$user = 'root';
-$pass = '';
-
-try {
-    $conexion = new PDO(
-        "mysql:host={$host};dbname={$db};charset=utf8mb4",
-        $user,
-        $pass,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ]
-    );
-} catch (PDOException $e) {
-    die('Error de conexión: ' . $e->getMessage());
-}
+require_once __DIR__ . '/../../includes/auth.php';
+auth_require_json();
 ```
 
-3. Verificá que la base de datos tenga las tablas necesarias según tu estructura real.
-
-4. Levantá el proyecto.
-
-## Ejecución local
-
-Opcionalmente, podés usar el servidor embebido de PHP:
-
-```bash
-php -S localhost:8000
-```
-
-Luego abrí en el navegador:
-
-```text
-http://localhost:8000/index.php?pages=inicio
-```
-
-## Páginas disponibles
-
-- `inicio` → resumen general
-- `clientes` → gestión de clientes
-- `mascotas` → gestión de mascotas
-- `turnos` → gestión de turnos
-
-## Cómo funciona el sistema
-
-1. `index.php` recibe el parámetro `pages` y decide qué módulo cargar.
-2. Cada vista se renderiza desde la carpeta `pages/`.
-3. La lógica del frontend en `assets/js/` llama a los archivos de `api/`.
-4. Los archivos en `api/` ejecutan consultas a la base de datos y devuelven JSON.
-5. La UI actualiza los resultados sin recargar toda la página.
-
-## Base de datos
-
-La aplicación trabaja con una estructura típica de un sistema de gestión veterinaria. En general, las tablas más relevantes son:
-
-- `clientes`
-- `mascotas`
-- `turnos`
-
-Si ya tenés la base de datos creada, solo debés asegurarte de que los nombres de tablas y columnas coincidan con las consultas del proyecto.
-
-## Seguridad
-
-El proyecto incorpora algunas buenas prácticas básicas, como:
-
-- uso de PDO con consultas preparadas
-- validación de datos del lado del servidor
-- control de errores mediante `try/catch`
-
-Aun así, si se va a usar en entorno real o de producción, se recomienda reforzar:
-
-- autenticación de usuarios
-- protección por sesiones
-- protección CSRF
-- control de permisos por rol
-- validación más rígida de entradas
-- logs y alertas de errores
+En producción también se recomienda verificar token CSRF en las operaciones POST de la API. No publiques el sistema en Internet hasta completar esa protección y probar cada endpoint sin sesión.
 
 ## Solución de problemas
 
-### 1. Error de conexión a MySQL
+- **Falta `config/auth.php`:** copiá el archivo de ejemplo, generá el hash y completá la configuración.
+- **No conecta a la base:** revisá `database.php`, que MySQL/MariaDB esté iniciado y que PDO MySQL esté habilitado.
+- **Se redirige al login continuamente:** verificá que el navegador acepte cookies y que PHP pueda escribir sesiones.
 
-Verificá:
+## Seguridad y alcance
 
-- que MySQL esté levantado
-- que el host sea correcto (`localhost` o IP real)
-- que el usuario, contraseña y nombre de base sean correctos
-
-### 2. `database.php` no existe
-
-Asegurate de que el archivo esté presente en la raíz del proyecto.
-
-### 3. La app no carga las páginas
-
-Revisá que el servidor esté activo y que la URL sea:
-
-```text
-http://localhost:8000/index.php?pages=inicio
-```
-
-## Consideraciones para producción
-
-Este proyecto está bien para uso local y para una primera versión funcional, pero si querés llevarlo a producción, te recomiendo:
-
-- agregar login y autenticación
-- separar entorno de desarrollo y producción
-- documentar variables de entorno
-- implementar logs y manejo de errores centralizado
-- montar el app con Docker o servidor web profesional
-
-## Autor
-
-Proyecto desarrollado por Liliana.
-
-## Siguiente paso recomendado
-
-Si ya tenés la base de datos armada y funcionando, lo que más necesitás ahora es:
-
-- proteger las páginas con sesión/login,
-- validar mejor los permisos,
-- documentar el esquema de la base de datos,
-- dejar un entorno más seguro y profesional.
-
-## Qué hacer con el README que ya tenías
-
-El README anterior ya servía como punto de partida, pero el nuevo contenido lo deja más claro para cualquiera que quiera clonar el proyecto, levantarlo, entender la estructura y saber cómo configurarlo.
-
-Si querés, en el próximo paso puedo ayudarte a hacer una segunda mejora importante: agregar autenticación con login y protección por sesión para que la app quede realmente segura y lista para usar en una clínica real.
+Este login es una protección básica para un entorno local o una primera versión. Para un sistema en producción, añadí protección CSRF a las llamadas de escritura de la API, límite de intentos de acceso, HTTPS, gestión de usuarios y roles, y pruebas de seguridad. Usá siempre una contraseña fuerte y mantené los archivos con credenciales fuera del control de versiones.

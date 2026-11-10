@@ -1,5 +1,6 @@
-# Archivos de configuración privados
-database.php
+# Configuración privada y credenciales locales
+/database.php
+/config/auth.php
 
 # Archivos temporales
 *.log

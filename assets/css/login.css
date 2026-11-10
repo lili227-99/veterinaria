@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #eef7f1, #e6f0f7);
+    color: #23332c;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.login-card {
+    width: min(100%, 420px);
+    padding: 36px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 48px rgb(28 54 41 / 12%);
+}
+
+.login-icon {
+    font-size: 2rem;
+}
+
+.login-card h1 {
+    margin: 12px 0 4px;
+    font-size: 1.8rem;
+}
+
+.login-subtitle {
+    margin: 0 0 24px;
+    color: #68756e;
+}
+
+.login-form {
+    display: grid;
+    gap: 10px;
+}
+
+.login-form label {
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccd7d0;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.login-form input:focus {
+    outline: 3px solid rgb(48 128 83 / 18%);
+    border-color: #308053;
+}
+
+.login-form button {
+    margin-top: 14px;
+    padding: 12px;
+    border: 0;
+    border-radius: 8px;
+    background: #308053;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-form button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+.login-message {
+    padding: 12px;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
+.login-message.error {
+    color: #8d2424;
+    background: #fff0f0;
+}
