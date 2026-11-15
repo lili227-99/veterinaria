@@ -74,7 +74,9 @@ $pages = 'clientes'; // Establece la página actual para resaltar el menú
                 <input type="text" name="dni" id="dni" required>
 
                 <label for="telefono">Teléfono:</label>
-                <input type="text" name="telefono" id="telefono">
+                <input type="tel" name="telefono" id="telefono"
+                       inputmode="numeric" pattern="[0-9]*" maxlength="30"
+                       title="Ingresá solo números.">
 
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email">
