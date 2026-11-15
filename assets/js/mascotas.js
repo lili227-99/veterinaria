@@ -1,8 +1,8 @@
 
 "use strict";
 
-const API_MASCOTAS = "api/mascotas/";
-const API_CLIENTES = "api/clientes/";
+const api_mascotas = "api/mascotas/";
+const api_clientes = "api/clientes/";
 
 const btnNuevaMascota = document.getElementById("btn-NuevaMascota");
 const buscar = document.getElementById("buscar");
@@ -53,7 +53,7 @@ async function cargarClientes() {
     opcionInicial.textContent = "Seleccioná un propietario";
     selectorCliente.appendChild(opcionInicial);
 
-    const datos = await pedirJSON(API_CLIENTES + "listar.php");
+    const datos = await pedirJSON(api_clientes + "listar.php");
     clientes = datos.clientes || [];
 
     clientes.forEach(cliente => {
@@ -79,7 +79,7 @@ async function cargarMascotas() {
         </td></tr>`;
 
     try {
-        const datos = await pedirJSON(API_MASCOTAS + "listar.php");
+        const datos = await pedirJSON(api_mascotas + "listar.php");
         mascotas = datos.mascotas || [];
         mostrarMascotas();
     } catch (error) {
@@ -282,7 +282,7 @@ formulario.addEventListener("submit", async evento => {
 
     try {
         const resultado = await pedirJSON(
-            API_MASCOTAS + endpoint,
+            api_mascotas + endpoint,
             {
                 method: "POST",
                 headers: {
@@ -331,7 +331,7 @@ async function desactivarMascota(mascota) {
 
     try {
         const resultado = await pedirJSON(
-            API_MASCOTAS + "eliminar.php",
+            api_mascotas + "eliminar.php",
             {
                 method: "POST",
                 headers: {

@@ -1,5 +1,5 @@
-const API_TURNOS = "api/turnos/";
-const API_MASCOTAS = "api/mascotas/";
+const api_turnos = "api/turnos/";
+const api_mascotas = "api/mascotas/";
 
 let turnosRegistrados = [];
 let mascotasDisponibles = [];
@@ -21,7 +21,7 @@ function inicializarTurnos() {
         "fecha_hora",
         "motivo",
         "estado",
-        "observaciones",
+    
         "tituloModalTurno",
         "tablaTurnos",
         "mensajeTurnos",
@@ -160,7 +160,7 @@ async function cargarMascotas() {
 
     try {
         const datos = await solicitarJSON(
-            `${API_MASCOTAS}listar.php`
+            `${api_mascotas}listar.php`
         );
 
         mascotasDisponibles = Array.isArray(datos.mascotas)
@@ -232,7 +232,7 @@ async function cargarTurnos() {
 
     try {
         const datos = await solicitarJSON(
-            `${API_TURNOS}listar.php`
+            `${api_turnos}listar.php`
         );
 
         turnosRegistrados = Array.isArray(datos.turnos)
@@ -424,8 +424,7 @@ async function nuevoTurno() {
 
     elementosTurnos.motivo.value = turno.motivo || "";
     elementosTurnos.estado.value = turno.estado || "pendiente";
-    elementosTurnos.observaciones.value = turno.observaciones || "";
-
+    
     elementosTurnos.tituloModalTurno.textContent = "Editar turno";
     elementosTurnos.btnGuardarTurno.textContent = "Guardar cambios";
 
@@ -474,7 +473,7 @@ async function guardarTurno(evento) {
         }
 
         const respuesta = await solicitarJSON(
-            `${API_TURNOS}${endpoint}`,
+            `${api_turnos}${endpoint}`,
             {
                 method: "POST",
                 headers: {
@@ -540,7 +539,7 @@ async function cancelarTurno(id) {
         datos.append("id_turno", id);
 
         const respuesta = await solicitarJSON(
-            `${API_TURNOS}eliminar.php`,
+            `${api_turnos}eliminar.php`,
             {
                 method: "POST",
                 headers: {

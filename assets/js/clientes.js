@@ -5,7 +5,7 @@
 // CONFIGURACIÓN
 // ========================================
 
-const API_CLIENTES = "api/clientes/";
+const api_clientes = "api/clientes/";
 
 const tablaClientes = document.getElementById("tablaClientes");
 const campoBuscar = document.getElementById("buscar");
@@ -71,7 +71,7 @@ async function cargarClientes() {
 
     try {
         const datos = await pedirJSON(
-            API_CLIENTES + "listar.php"
+            api_clientes + "listar.php"
         );
 
         clientes = datos.clientes || [];
@@ -275,7 +275,7 @@ formularioCliente.addEventListener("submit", async evento => {
 
     try {
         const resultado = await pedirJSON(
-            API_CLIENTES + endpoint,
+            api_clientes + endpoint,
             {
                 method: "POST",
                 headers: {
@@ -334,7 +334,7 @@ async function desactivarCliente(cliente) {
 
     try {
         const resultado = await pedirJSON(
-            API_CLIENTES + "eliminar.php",
+            api_clientes + "eliminar.php",
             {
                 method: "POST",
                 headers: {

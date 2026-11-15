@@ -105,11 +105,6 @@
                     </select>
                 </div>
 
-                <div class="campo-turno">
-                    <label for="observaciones">Observaciones</label>
-                    <textarea id="observaciones" name="observaciones" rows="2"></textarea>
-                </div>
-
                 <div class="modal-botones-turno">
                     <button type="button" id="btnCancelarFormularioTurno" class="btn-secundario">
                         Cancelar
